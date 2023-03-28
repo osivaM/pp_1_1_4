@@ -10,9 +10,18 @@ public class Util {
     private static final String PASSWORD = "root";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(DRIVER);
+    public static Connection getConnection() {
+        Connection connection = null;
 
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            System.out.println("Ошибка подключения к драйверу.");
+        } catch (SQLException e1) {
+            System.out.println("Ошибка создания Connection.\n" + e1.getMessage());
+        }
+
+        return connection;
     }
 }
