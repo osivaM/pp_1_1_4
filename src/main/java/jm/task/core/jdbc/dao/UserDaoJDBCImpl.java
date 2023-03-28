@@ -15,33 +15,25 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         try (Connection connection = Util.getConnection()) {
             try (Statement statement = connection.createStatement()) {
-                connection.setAutoCommit(false);
                 statement.executeUpdate("CREATE TABLE IF NOT EXISTS `pp_1_1_4`.`User` (\n" +
                         "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                         "  `name` VARCHAR(45) NOT NULL,\n" +
                         "  `lastName` VARCHAR(45) NOT NULL,\n" +
                         "  `age` VARCHAR(45) NOT NULL,\n" +
                         "  PRIMARY KEY (`id`));");
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
             }
-        } catch (SQLException e1) {
-            System.out.println("Не удалось создать таблицу.\n" + e1.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Не удалось создать таблицу.\n" + e.getMessage());
         }
     }
 
     public void dropUsersTable() {
         try (Connection connection = Util.getConnection()) {
             try (Statement statement = connection.createStatement()) {
-                connection.setAutoCommit(false);
                 statement.executeUpdate("DROP TABLE IF EXISTS User");
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
             }
-        } catch (SQLException e1) {
-            System.out.println("Не удалось удалить таблицу.\n" + e1.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Не удалось удалить таблицу.\n" + e.getMessage());
         }
     }
 
